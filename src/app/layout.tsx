@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Nunito, Imbue, Geist, Geist_Mono, Inter } from "next/font/google";
+import { Nunito, Imbue, Inter } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const inter = Geist({
+const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
@@ -30,8 +31,8 @@ const imbue = Imbue({
 });
 
 export const metadata: Metadata = {
-  title: "Xponent",
-  description: "A collection of components and templates for Tailwind CSS",
+  title: "Sahil Kumar",
+  description: "Software Engineer based in India",
 };
 
 // ${geistSans.variable} ${geistMono.variable}
@@ -43,8 +44,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <Head>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <body
-        className={` ${geistSans.variable} ${inter.variable} ${nunito.variable} ${imbue.variable} antialiased bg-white w-full min-h-screen max-w-[40rem] mx-auto text-[16px] overflow-x-hidden`}
+        className={`  ${inter.variable} ${nunito.variable} ${imbue.variable} antialiased bg-white w-full min-h-screen max-w-[40rem] mx-auto text-[16px] overflow-x-hidden`}
       >
         {children}
       </body>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className=" px-6 py-12 mx-auto font-sans text-justify text-gray-600">
+    <main className=" px-8 py-12 mx-auto font-sans text-justify text-gray-600 relative overflow-x-hidden">
       <h1 className="text-[26.88px] font-bold ">Sahil Kumar</h1>
       <p className="text-gray-400/80 font-semibold mb-8">
         Software Engineer & Developer based in India

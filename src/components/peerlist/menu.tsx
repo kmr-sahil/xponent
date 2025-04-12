@@ -3,12 +3,14 @@ import { Menu, X, Home, Mail, User, Settings } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-// Component for the SVG filter that creates the gooey effect
-function GooeyFilter({ id = "gooey-filter", strength = 12 }) {
+function GooeyFilter({ id = "gooey-filter", strength = 8 }) {
   return (
-    <svg style={{ position: "absolute", width: 0, height: 0 }}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ position: "absolute", width: 0, height: 0 }}
+    >
       <defs>
-        <filter id={id}>
+        <filter id={id} filterUnits="userSpaceOnUse">
           <feGaussianBlur
             in="SourceGraphic"
             stdDeviation={strength}
@@ -32,7 +34,8 @@ export default function MenuComponent() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const items = [Home, Mail, User, Settings];
   const commonBgStyle = {
-    backgroundColor: "#f4f4f5", // Exact color value to ensure consistency
+    backgroundColor: "#f4f4f5",
+    willChange: "transform, filter, opacity", // Hint browser for performance
   };
 
   const handleToggle = () => {
@@ -41,50 +44,49 @@ export default function MenuComponent() {
       setOpen(!open);
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 200);
-    }, 200);
+      }, 150); // Slightly reduced for snappier feel on mobile
+    }, 150);
   };
 
-  // Calculate spring stiffness and damping based on position
   const getSpringConfig = (index: number, isOpening: boolean) => {
     const position = isOpening ? items.length - 1 - index : index;
-    const baseStiffness = 100;
-    const baseDamping = 16;
-    const stiffness = baseStiffness + position * 50;
-    const damping = Math.max(5, baseDamping - position * 0.5);
-
+    const baseStiffness = 80; // Slightly reduced for smoother transitions
+    const baseDamping = 14;
+    const stiffness = baseStiffness + position * 40;
+    const damping = Math.max(6, baseDamping - position * 0.4);
     return { stiffness, damping };
   };
 
   return (
     <div className="flex flex-col items-center pt-4">
-      {/* Add the gooey filter SVG */}
-      <GooeyFilter id="menu-gooey-filter" strength={10} />
+      <GooeyFilter id="menu-gooey-filter" strength={8} />
 
-      {/* Container with gooey filter applied */}
       <div
         className="relative flex flex-col items-center"
         style={{
           filter: "url(#menu-gooey-filter)",
-          // For Safari compatibility
           WebkitFilter: "url(#menu-gooey-filter)",
+          willChange: "filter, transform",
+          transform: "translateZ(0)", // Force GPU accel
         }}
       >
-        {/* Toggle Button with Blur Transition */}
         <motion.button
           onClick={handleToggle}
-          style={commonBgStyle}
+          style={{
+            ...commonBgStyle,
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+          }}
           className="bg-zinc-100 p-4 rounded-full cursor-pointer text-gray-700 relative z-50 overflow-hidden"
           animate={{
-            filter: isTransitioning ? "blur(8px)" : "blur(0px)",
+            filter: isTransitioning ? "blur(6px)" : "blur(0px)",
             scale: isTransitioning ? 0.95 : 1,
           }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.18 }}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </motion.button>
 
-        {/* Navigation Icons */}
         <div className="flex flex-col items-center">
           <AnimatePresence>
             {open &&
@@ -108,8 +110,8 @@ export default function MenuComponent() {
                         type: "spring",
                         stiffness,
                         damping,
-                        delay: 0.04 * idx,
-                        duration: 0.2 + idx * 0.05,
+                        delay: 0.03 * idx,
+                        duration: 0.18 + idx * 0.04,
                       },
                     }}
                     exit={{
@@ -120,12 +122,16 @@ export default function MenuComponent() {
                         type: "spring",
                         stiffness: exitConfig.stiffness,
                         damping: exitConfig.damping,
-                        delay: 0.03 * (items.length - 1 - idx),
-                        duration: 0.2 + (items.length - 1 - idx) * 0.03,
+                        delay: 0.02 * (items.length - 1 - idx),
+                        duration: 0.18 + (items.length - 1 - idx) * 0.03,
                       },
                     }}
-                    style={{ zIndex: 10 - idx, ...commonBgStyle }}
-                    className="bg-zinc-100 p-4 rounded-full  cursor-pointer relative"
+                    style={{
+                      zIndex: 10 - idx,
+                      ...commonBgStyle,
+                      touchAction: "manipulation", // For mobile smoothness
+                    }}
+                    className="bg-zinc-100 p-4 rounded-full cursor-pointer relative"
                   >
                     <Icon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
                   </motion.div>
@@ -135,8 +141,6 @@ export default function MenuComponent() {
         </div>
       </div>
 
-      {/* Interactive overlay to ensure click events work properly
-           (since filters can sometimes interfere with interactions) */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="flex flex-col items-center pt-4 pointer-events-auto">
           <div
