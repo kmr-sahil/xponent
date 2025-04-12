@@ -2,122 +2,87 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const images = [
+  "/images/img1.jpg",
+  "/images/img2.jpg",
+  "/images/img3.jpg",
+  "/images/img4.jpg",
+];
 
 export default function Carousel() {
-  const images = [
-    "/images/img1.jpg",
-    "/images/img2.jpg",
-    "/images/img3.jpg",
-    "/images/img4.jpg",
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const currentIndexRef = useRef(0);
-  const [dragging, setDragging] = useState(false);
-  const startX = useRef(0);
-  const deltaX = useRef(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const updateIndex = (newIndex) => {
-    currentIndexRef.current = newIndex;
-    setCurrentIndex(newIndex);
+  // Function to restart the timer when manually switching
+  const restartTimer = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
   };
 
-  // Auto-play functionality
+  // Auto-play with proper timer reset
   useEffect(() => {
-    if (dragging) return;
-    const interval = setInterval(() => {
-      updateIndex((currentIndexRef.current + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [dragging]);
+    restartTimer();
+    return () => intervalRef.current && clearInterval(intervalRef.current);
+  }, [currentIndex]);
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "ArrowRight") {
-        updateIndex((currentIndexRef.current + 1) % images.length);
-      } else if (e.key === "ArrowLeft") {
-        updateIndex(
-          currentIndexRef.current === 0
-            ? images.length - 1
-            : currentIndexRef.current - 1
-        );
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  const handlePointerDown = (e) => {
-    setDragging(true);
-    startX.current = e.clientX || e.touches[0].clientX;
-  };
-
-  const handlePointerMove = (e) => {
-    if (!dragging) return;
-    const moveX = e.clientX || e.touches[0].clientX;
-    deltaX.current = moveX - startX.current;
-  };
-
-  const handlePointerUp = () => {
-    setDragging(false);
-    if (Math.abs(deltaX.current) > 80) {
-      if (deltaX.current > 0) {
-        updateIndex(
-          currentIndexRef.current === 0
-            ? images.length - 1
-            : currentIndexRef.current - 1
-        );
-      } else {
-        updateIndex((currentIndexRef.current + 1) % images.length);
-      }
-    }
-    deltaX.current = 0;
+  // Handle manual navigation
+  const handleNav = (index: number) => {
+    setCurrentIndex(index);
+    restartTimer();
   };
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto flex flex-col items-center">
-      <div
-        className="relative w-full h-[400px] overflow-hidden rounded-xl touch-pan-x"
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-        tabIndex="0"
-        role="region"
-        aria-label="Image carousel"
+    <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg">
+      
+      {/* Carousel Track */}
+      <motion.div
+        className="flex"
+        initial={false}
+        animate={{ x: `-${currentIndex * 100}%` }}
+        transition={{ type: "spring", stiffness: 100, damping: 40 }}
       >
-        <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(${-currentIndex * 100}%)` }}
-        >
-          {images.map((src, index) => (
-            <div
-              key={index}
-              className="w-full flex-shrink-0 relative h-[400px]"
-            >
-              <Image
-                src={src}
-                alt={`Slide ${index + 1}`}
-                fill
-                className="object-cover rounded-xl"
-                priority
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+        {images.map((src, index) => (
+          <motion.div
+            key={index}
+            className="w-full flex-shrink-0 relative h-[400px]"
+            drag="x"
+            whileDrag={{scale: 0.95}}
+            dragElastic={0.2}   // Adds elasticity for smoothness
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -50) {
+                setCurrentIndex((prev) => (prev + 1) % images.length);
+              } else if (info.offset.x > 50) {
+                setCurrentIndex((prev) =>
+                  prev === 0 ? images.length - 1 : prev - 1
+                );
+              }
+              restartTimer();
+            }}
+          >
+            <Image
+              src={src}
+              alt={`Slide ${index + 1}`}
+              fill
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+        ))}
+      </motion.div>
 
       {/* Navigation Dots */}
-      <div className="flex space-x-2 mt-4">
+      <div className="flex justify-center mt-4 space-x-2">
         {images.map((_, index) => (
           <button
             key={index}
             className={`relative h-2 rounded-full bg-gray-300 transition-all duration-300 overflow-hidden ${
               index === currentIndex ? "w-6" : "w-2"
             }`}
-            onClick={() => updateIndex(index)}
+            onClick={() => handleNav(index)}
             aria-label={`Go to slide ${index + 1}`}
           >
             {index === currentIndex && (
@@ -125,7 +90,7 @@ export default function Carousel() {
                 className="absolute left-0 top-0 h-full bg-zinc-700"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 3, ease: "linear" }}
+                transition={{ duration: 3.5, ease: "linear" }}
               />
             )}
           </button>

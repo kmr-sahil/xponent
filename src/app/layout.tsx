@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${geistSans.variable} ${inter.variable} ${nunito.variable} ${imbue.variable} antialiased bg-white w-full min-h-screen`}
+        className={` ${geistSans.variable} ${inter.variable} ${nunito.variable} ${imbue.variable} antialiased bg-white w-full min-h-screen max-w-[40rem] mx-auto text-[16px] overflow-x-hidden`}
       >
         {children}
       </body>
