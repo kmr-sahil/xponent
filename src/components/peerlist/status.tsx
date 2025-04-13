@@ -13,6 +13,7 @@ const statuses = [
     textColor: "#0D99FF",
     icon: "spinner",
     duration: 1500,
+    direction: "left",
   },
   {
     key: "safe",
@@ -21,6 +22,7 @@ const statuses = [
     textColor: "#12B76A",
     icon: "check",
     duration: 2000,
+    direction: "right",
   },
   {
     key: "analyzing-2",
@@ -29,6 +31,7 @@ const statuses = [
     textColor: "#0D99FF",
     icon: "spinner",
     duration: 1500,
+    direction: "left",
   },
   {
     key: "warning",
@@ -37,6 +40,7 @@ const statuses = [
     textColor: "#F04438",
     icon: "alert",
     duration: 2000,
+    direction: "right",
   },
 ];
 
@@ -63,25 +67,36 @@ export default function TransactionStatus() {
           </div>
         );
       case "alert":
-        return <AlertTriangle className="w-5 h-5 text-red-500" />;
+        return (
+          <motion.div
+            className="w-5 h-5 flex items-center justify-center"
+            animate={{ x: [0, -1, 1, -1, 1, 0], rotate: [0, 5, -5, 5, -5, 0] }}
+            transition={{ duration: 0.85, ease: "easeInOut" }}
+          >
+            <AlertTriangle className="w-5 h-5 text-red-500" />
+          </motion.div>
+        );
     }
   };
 
   return (
     <motion.div
-      className="inline-flex items-center px-4 py-3 rounded-full transition-colors duration-100"
+      className="inline-flex items-center px-4 py-3 rounded-full transition-colors duration-100 overflow-x-hidden"
       style={{
         backgroundColor: current.bg,
+        border: `1px solid ${current.textColor}`,
+          opacity: 1,
+          borderColor: current.textColor + '10'
       }}
-      layout="position"
+      layout={true}
     >
       {/* Animate only the icon */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current.icon}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          exit={{ opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.1 }}
           className="w-6 h-6 mr-1 flex items-center justify-center"
         >
@@ -93,7 +108,10 @@ export default function TransactionStatus() {
       <motion.span
         key={current.label}
         layout="position"
-        initial
+        initial={{ opacity: 0, x: current.direction == "left" ? -5 : 5 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: current.direction == "left" ? -5 : 5 }}
+        transition={{ duration: 0.2 }}
         style={{
           color: current.textColor,
         }}
