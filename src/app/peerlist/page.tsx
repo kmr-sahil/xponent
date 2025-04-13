@@ -2,6 +2,7 @@ import React from "react";
 import MenuComponent from "@/components/peerlist/menu";
 import Image from "next/image"; // Assuming you're using next/image
 import Link from "next/link";
+import TransactionStatus from "@/components/peerlist/status";
 
 function Page() {
   return (
@@ -41,10 +42,11 @@ function Page() {
           better view in larger screen
         </span>
       </div>
-      <div className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative">
-        <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 text-center">
+      <div className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center">
+        <TransactionStatus />
+        {/* <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 text-center">
           Day 2 upcoming...
-        </span>
+        </span> */}
       </div>
     </div>
   );
