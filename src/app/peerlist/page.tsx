@@ -14,9 +14,7 @@ function Page() {
           <Link
             href="/"
             className="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-300 text-white flex items-center justify-center text-xl shadow-md hover:scale-105 transition-all"
-          >
-            
-          </Link>
+          ></Link>
 
           {/* Button to Peerlist profile */}
           <Link
@@ -36,13 +34,13 @@ function Page() {
       </div>
 
       {/* Page Content */}
-      <div className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative">
+      <div id="menu" className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative">
         <MenuComponent />
         <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 max-w-[20rem] mx-auto text-center">
           better view in larger screen
         </span>
       </div>
-      <div className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center">
+      <div id="status" className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center">
         <TransactionStatus />
         {/* <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 text-center">
           Day 2 upcoming...
