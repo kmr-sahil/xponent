@@ -61,7 +61,7 @@ function Page() {
         <Checkbox />
       </div>
       <div
-        id="checkbox"
+        id="toggle"
         className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
       >
         <Toggle />
