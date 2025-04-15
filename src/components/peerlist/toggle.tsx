@@ -8,7 +8,7 @@ export default function Toggle() {
 
   return (
     <div className="flex flex-col items-center justify-center font-sans">
-      <div className="relative shadow-sm border-1 border-gray-200 rounded-full h-14 flex items-center px-2 py-3 w-[18rem] sm:w-[25rem]">
+      <div className="relative shadow-sm border-1 border-gray-200 rounded-full h-14 flex items-center px-2 py-3 w-[18rem] sm:w-[25rem] cursor-pointer">
         {/* Free Option */}
         <motion.button
           className={`relative z-10 rounded-full h-10 flex items-center justify-center w-1/2 text-sm font-medium transition-colors ${
