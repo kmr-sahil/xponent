@@ -146,7 +146,7 @@ export default function Checkbox() {
   const [focusedId, setFocusedId] = useState<number | null>(null);
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-white">
+    <main className=" flex items-center justify-center bg-white">
       <div className="space-y-3 p-4 shadow rounded-md">
         <TodoItem id={1} label="Buy groceries" focusedId={focusedId} setFocusedId={setFocusedId} />
         <TodoItem id={2} label="Contemplate existence" focusedId={focusedId} setFocusedId={setFocusedId} />

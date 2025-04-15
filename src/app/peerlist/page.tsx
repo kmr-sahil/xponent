@@ -4,6 +4,7 @@ import Image from "next/image"; // Assuming you're using next/image
 import Link from "next/link";
 import TransactionStatus from "@/components/peerlist/status";
 import Checkbox from "@/components/peerlist/checkbox";
+import Toggle from "@/components/peerlist/toggle";
 
 function Page() {
   return (
@@ -35,23 +36,35 @@ function Page() {
       </div>
 
       {/* Page Content */}
-      <div id="menu" className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative">
+      <div
+        id="menu"
+        className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative"
+      >
         <MenuComponent />
         <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 max-w-[20rem] mx-auto text-center">
           better view in larger screen
         </span>
       </div>
-      <div id="status" className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center">
+      <div
+        id="status"
+        className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
+      >
         <TransactionStatus />
         {/* <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 text-center">
           Day 2 upcoming...
         </span> */}
       </div>
-      <div id="checkbox" className="w-full min-h-[22rem] rounded-2xl border-2 border-gray-100 relative flex items-center justify-center">
+      <div
+        id="checkbox"
+        className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
+      >
         <Checkbox />
-        {/* <span className="absolute bottom-4 inset-x-0 text-sm text-zinc-500 text-center">
-          Day 2 upcoming...
-        </span> */}
+      </div>
+      <div
+        id="checkbox"
+        className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
+      >
+        <Toggle />
       </div>
     </div>
   );
