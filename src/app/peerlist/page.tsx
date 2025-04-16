@@ -68,7 +68,7 @@ function Page() {
         <Toggle />
       </div>
       <div
-        id="toggle"
+        id="tab"
         className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
       >
         <Tab />
