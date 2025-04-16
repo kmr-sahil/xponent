@@ -5,6 +5,7 @@ import Link from "next/link";
 import TransactionStatus from "@/components/peerlist/status";
 import Checkbox from "@/components/peerlist/checkbox";
 import Toggle from "@/components/peerlist/toggle";
+import Tab from "@/components/peerlist/tabs";
 
 function Page() {
   return (
@@ -65,6 +66,12 @@ function Page() {
         className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
       >
         <Toggle />
+      </div>
+      <div
+        id="toggle"
+        className="w-full min-h-[22rem]  rounded-2xl border-2 border-gray-100 relative flex items-center justify-center"
+      >
+        <Tab />
       </div>
     </div>
   );
