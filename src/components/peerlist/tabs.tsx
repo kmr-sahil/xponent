@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { List, LayoutGrid, Package } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const collectibles = [
   {
@@ -57,7 +57,7 @@ export default function Tab() {
         {/* Conditional Rendering */}
         {view === "card" && (
           <div className="grid grid-cols-2 gap-4 ">
-            {collectibles.map((item, idx) => (
+            {collectibles.map((item) => (
               <div
                 key={item.id}
                 className="bg-white rounded-xl p-3 text-center"
