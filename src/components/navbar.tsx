@@ -1,103 +1,50 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import { Menu, Moon, X } from "lucide-react";
-import { motion } from "motion/react";
 
-const menuItems = Array.from({ length: 10 }, (_, i) => `Menu Item ${i + 1}`);
+import { Moon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
-export default function NavbarWithSimpleMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+export default function Navbar() {
+  const pathname = usePathname();
 
-  const appearAnimation = {
-    initial: {
-      opacity: 0,
-      x: -20,
-      y: 20,
-      scale: 0.85,
-    },
-    animate: (index: number) => ({
-      opacity: 1,
-      x: 0,
-      y: 0,
-      scale: 1,
-      transition: {
-        delay: 0.08 * index,
-      },
-    }),
-  };
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const links = [
+    { name: "Craft", href: "/craft" },
+    { name: "Products", href: "/products" },
+    { name: "Words", href: "/words" },
+    { name: "About", href: "/about" },
+  ];
 
   return (
-    <div className="relative">
-      {/* Navbar */}
-      <div className="sticky top-0 z-10 backdrop-blur-sm bg-white/20">
-        <div className="max-w-[48rem] mx-auto p-4 relative">
-          <div className="flex items-center justify-between">
-            {/* Hamburger Icon */}
-            <div className="flex items-center space-x-3">
-              <Menu
-                className="h-5 w-5 text-zinc-300 cursor-pointer"
-                onClick={() => setIsOpen((prev) => !prev)}
-              />
-              <span className="font-medium text-zinc-400">Crafts</span>
-            </div>
+    <nav className="fixed bottom-3 max-w-[40rem] w-full border-b border-[color:var(--muted-foreground)] px-6 py-3 flex items-center justify-between bg-[color:var(--background)] text-sm font-medium text-[color:var(--muted)]">
+      {/* Left - Logo Dot */}
+      <div className="w-3 h-3 bg-blue-400 rounded-full" />
 
-            {/* Dark Mode Icon */}
-            <Moon className="h-5 w-5 text-zinc-300" />
-          </div>
-
-          {/* Floating Menu */}
-          {isOpen && (
-            <motion.div
-              variants={appearAnimation}
-              initial={{ opacity: 0, x: -20, y: -40, scale: 0.85 }}
-              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.2 }}
-              ref={menuRef}
-              className="absolute top-14 left-2 z-50 w-60 backdrop-blur-[8rem] bg-white shadow-xl rounded-lg p-4 text-zinc-600"
-              style={{ maxHeight: "300px", overflowY: "auto" }}
-            >
-              {/* Menu Header */}
-              <div className="flex justify-between items-center border-b-[1px] border-zinc-100 pb-2 mb-1">
-                <span className="text-sm font-medium text-zinc-700">
-                  Browse
-                </span>
-                <X
-                  className="h-4 w-4 text-zinc-400 cursor-pointer hover:text-zinc-500"
-                  onClick={() => setIsOpen(false)}
-                />
-              </div>
-
-              {/* Scrollable Menu Items */}
-              <ul className="space-y-[1px]">
-                {menuItems.map((item, index) => (
-                  <motion.li
-                    variants={appearAnimation}
-                    initial="initial"
-                    whileInView="animate"
-                    key={index}
-                    custom={index}
-                    className="p-2 rounded-md hover:bg-zinc-100 cursor-pointer text-xs"
-                  >
-                    {item}
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </div>
+      {/* Center - Nav Links */}
+      <div className="flex gap-6">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={clsx(
+              pathname === link.href
+                ? "text-[color:var(--text-primary)]"
+                : "text-[color:var(--muted)]",
+              "transition-colors hover:text-[color:var(--text-primary)]"
+            )}
+          >
+            {link.name}
+          </Link>
+        ))}
       </div>
-    </div>
+
+      {/* Right - Divider and Moon Icon */}
+      <div className="flex items-center gap-4">
+        <div className="w-px h-4 bg-[color:var(--muted-foreground)]" />
+        <button>
+          <Moon size={16} />
+        </button>
+      </div>
+    </nav>
   );
 }
