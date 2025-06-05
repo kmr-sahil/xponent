@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="px-8 py-12 mx-auto max-w-3xl font-sans text-justify text-[color:var(--muted)] relative overflow-x-hidden text-[15px]">
+    <main className="px-8 py-12 mx-auto max-w-[40rem] font-sans text-justify text-[color:var(--muted)] relative overflow-x-hidden text-[15px] ">
       <section className="bg-[color:var(--text-background)] border-[1px] border-[color:var(--muted-foreground)] rounded-2xl p-6 mb-6">
         <h1 className="text-[16px] font-bold text-[color:var(--muted)]">Sahil Kumar</h1>
         <p className="font-semibold mb-8 text-[color:var(--text-primary)]">

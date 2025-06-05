@@ -35,7 +35,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" />
       </Head> */}
       <body
-        className={`${inter.variable} ${nunito.variable} ${imbue.variable} w-full min-h-screen relative max-w-[40rem] mx-auto text-[16px] overflow-x-hidden`}
+        className={`${inter.variable} ${nunito.variable} ${imbue.variable} w-full min-h-screen relative  mx-auto text-[16px] overflow-x-hidden`}
       >
         <ThemeProvider attribute="class">
           {children}
