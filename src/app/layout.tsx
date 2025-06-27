@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { Nunito, Imbue, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import NavbarWithSimpleMenu from "@/components/navbar";
-import Head from "next/head";
 import Navbar from "@/components/navbar";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -41,7 +39,6 @@ export default function RootLayout({
           {children}
           <Navbar />
         </ThemeProvider>
-        
       </body>
     </html>
   );

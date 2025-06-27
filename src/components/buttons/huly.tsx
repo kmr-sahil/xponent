@@ -6,7 +6,7 @@ export default function HulyButton() {
   const [hovered, setHovered] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: any) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setCoords({
       x: e.clientX - rect.left,
@@ -48,7 +48,7 @@ export default function HulyButton() {
             onMouseLeave={() => setHovered(false)}
             onMouseMove={handleMouseMove}
           >
-            TRY IY FREE
+            TRY IT FREE
             {/* Inner span */}
             <motion.span
               className="w-20 h-12 -top-1 -right-2 -z-10 blur-[10px] absolute bg-linear-to-r from-orange-100/20 to-orange-100 rounded-full contrast-200"

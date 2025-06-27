@@ -3,19 +3,9 @@ import { IconChevronRight } from "@tabler/icons-react";
 
 export default function StripeButton() {
   return (
-    <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-        rel="stylesheet"
-      />
+   
 
-      <div className="flex items-center justify-center my-4 py-6 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-black rounded-2xl">
+      <div className="flex font-sans items-center justify-center my-4 py-6 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-black rounded-2xl">
          <button 
          className="group text-[14px] font-medium bg-white rounded-full px-4 py-1 mt-[0.5px] flex items-center gap-1.5 cursor-pointer"
          style={{ fontFamily: 'Inter, sans-serif', mixBlendMode: 'screen' }}
@@ -27,6 +17,5 @@ export default function StripeButton() {
         </span>
       </button>
       </div>
-    </>
   );
 }

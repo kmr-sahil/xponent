@@ -1,6 +1,4 @@
 "use client";
-
-import { Moon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";

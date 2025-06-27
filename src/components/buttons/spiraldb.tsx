@@ -1,22 +1,15 @@
 import React from "react";
+import { Geist_Mono } from "next/font/google";
+
+const geist = Geist_Mono({ variable: "--font-geist", subsets: ["latin"] });
 
 export default function SpiraldbButton() {
   return (
-    <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap"
-        rel="stylesheet"
-      />
 
-      <div className="flex items-center justify-center p-4 ">
+      <div className={`flex items-center justify-center p-4 ${geist.variable}`} 
+      style={{ fontFamily: 'var(--font-geist), monospace' }}
+      >
         <button
-          style={{ fontFamily: "Geist Mono, monospace" }}
           className="relative cursor-pointer overflow-hidden pt-4 rounded-b-[1.3rem] group active:overflow-hidden font-medium"
         >
           <span className="absolute w-full bottom-0 left-0  rounded-full flex justify-between whitespace-nowrap z-30 text-white/0 group-active:bg-black/20 transition-all duration-100 pt-[1px]">
@@ -34,6 +27,5 @@ export default function SpiraldbButton() {
           </div>
         </button>
       </div>
-    </>
   );
 }

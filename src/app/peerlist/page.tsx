@@ -9,7 +9,7 @@ import Tab from "@/components/peerlist/tabs";
 
 function Page() {
   return (
-    <div className="flex flex-col gap-4 items-center justify-center p-4 relative">
+    <div className="flex flex-col gap-4 items-center justify-center p-4 relative max-w-[40rem] mx-auto">
       {/* Fixed Centered Buttons */}
       <div className="fixed bottom-10 flex items-center justify-center z-50 text-sm bg-white p-2 border border-gray-200 rounded-full">
         <div className="flex gap-6">

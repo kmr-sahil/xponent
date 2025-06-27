@@ -54,7 +54,7 @@ export default function TransactionStatus() {
     }, current.duration);
 
     return () => clearTimeout(timeout);
-  }, [index]);
+  }, [index, current.duration]); // Fixed: Added current.duration to dependency array
 
   const renderIcon = (type: string) => {
     switch (type) {
@@ -76,6 +76,8 @@ export default function TransactionStatus() {
             <AlertTriangle className="w-5 h-5 text-red-500" />
           </motion.div>
         );
+      default:
+        return null;
     }
   };
 
@@ -85,8 +87,8 @@ export default function TransactionStatus() {
       style={{
         backgroundColor: current.bg,
         border: `1px solid ${current.textColor}`,
-          opacity: 1,
-          borderColor: current.textColor + '10'
+        opacity: 1,
+        borderColor: current.textColor + '10'
       }}
       layout={true}
     >
@@ -108,9 +110,9 @@ export default function TransactionStatus() {
       <motion.span
         key={current.label}
         layout="position"
-        initial={{ opacity: 0, x: current.direction == "left" ? -5 : 5 }}
+        initial={{ opacity: 0, x: current.direction === "left" ? -5 : 5 }}
         animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: current.direction == "left" ? -5 : 5 }}
+        exit={{ opacity: 0, x: current.direction === "left" ? -5 : 5 }}
         transition={{ duration: 0.2 }}
         style={{
           color: current.textColor,
