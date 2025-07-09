@@ -22,7 +22,7 @@ export default function Navbar() {
       </div> */}
 
       {/* Actual Nav Content */}
-      <div className="relative z-10 w-full max-w-[30rem] px-6 py-3 rounded-full flex items-center  justify-between text-sm font-medium text-[color:var(--muted)] bg-[color:var(--background)] border border-[color:var(--muted-foreground)] pointer-events-auto">
+      <div className="relative z-10 w-full max-w-[30rem] px-6 py-3 rounded-full flex items-center  justify-between text-sm font-medium text-[color:var(--muted)] bg-[color:var(--muted-foreground)] pointer-events-auto">
         {/* Left - Logo Dot */}
         <div className="w-3 h-3 bg-blue-400 rounded-full" />
 
