@@ -1,4 +1,4 @@
-"use client";
+
 import CodeRabbitButton from "@/components/buttons/coderabbit";
 import ContentSquareButton from "@/components/buttons/contentsqaure";
 import HulyButton from "@/components/buttons/huly";
@@ -77,13 +77,13 @@ const buttons = [
 
 export default function Page() {
   return (
-    <div className="max-w-[80rem] w-full mx-auto px-4 py-10">
+    <div className="font-sans max-w-[80rem] w-full mx-auto px-4 py-10 text-base">
       {/* Small Heading */}
-      <h2 className="text-lg mt-[6rem] text-center font-semibold text-[color:var(--text-primary)] mb-[1rem]">
+      <h2 className=" mt-[4rem] text-center font-semibold  mb-[0.5rem] text-highlight">
         Button Components
       </h2>
-      <p className="text-[color:var(--muted)] mb-[4rem] text-center">
-        Made using Tailwind CSS & Motion, Click over the button to get the code
+      <p className="mb-[4rem] text-center">
+        Made using Tailwind CSS & Motion. Click over the button to get the code
       </p>
 
       {/* Responsive Grid Layout */}
@@ -91,7 +91,7 @@ export default function Page() {
         {buttons.map((btn, index) => (
           <div
             key={index}
-            className="block rounded-xl border border-[color:var(--muted-foreground)] bg-[color:var(--muted-foreground)] text-[color:var(--muted)] p-4 md:p-6 transition"
+            className="block rounded-2xl bg-[color:var(--muted-foreground)] text-[color:var(--muted)] p-4 md:p-6 transition"
           >
             {btn.button}
 

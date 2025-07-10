@@ -40,6 +40,7 @@ body {
   letter-spacing: -0.1px;
   word-spacing: 0.1rem;
   text-align: start;
+  color: var(--muted);
 }
 
 .text-highlight {

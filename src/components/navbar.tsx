@@ -9,9 +9,9 @@ export default function Navbar() {
 
   const links = [
     { name: "Craft", href: "/craft" },
-    { name: "Products", href: "/products" },
+    //{ name: "Products", href: "/products" },
     { name: "Words", href: "/words" },
-    { name: "About", href: "/about" },
+    //{ name: "About", href: "/about" },
   ];
 
   return (
