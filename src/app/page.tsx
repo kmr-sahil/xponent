@@ -1,5 +1,4 @@
-import { ExternalLink, Copy, Github, Linkedin, Mail } from "lucide-react";
-import X from "../../public/x.svg";
+import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { projects, experience } from "@/constants/portfolio";
 
