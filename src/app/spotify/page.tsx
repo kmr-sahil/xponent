@@ -121,7 +121,9 @@ export default function SpotifyControl() {
           <h2 className="text-xl font-semibold">▶️ Now Playing:</h2>
           <p>
             {(currentlyPlaying as any)?.name} by{" "}
-            {(currentlyPlaying as any)?.map((a: any) => a.name).join(", ")}
+            {(currentlyPlaying as any)?.artists
+              ?.map((a: any) => a.name)
+              .join(", ")}
           </p>
         </div>
       )}
